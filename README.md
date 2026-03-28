@@ -10,9 +10,9 @@ One command in, full analysis out: per-tensor statistics, visualizations, and a 
 pip install torch numpy matplotlib tqdm huggingface_hub safetensors
 
 # Analyze any model
-python run.py openai-community/gpt2
-python run.py Qwen/Qwen3.5-0.8B
-python run.py meta-llama/Llama-3.2-1B --token hf_xxx
+python src/run.py openai-community/gpt2
+python src/run.py Qwen/Qwen3.5-0.8B
+python src/run.py meta-llama/Llama-3.2-1B --token hf_xxx
 ```
 
 ## What It Does
@@ -40,10 +40,11 @@ Then generates 9 chart types and a markdown report.
 ## Pipeline
 
 ```
-run.py
-├── analyze.py   → per-tensor stats (resumable JSONL)
-├── visualize.py → 9 chart types (dark theme)
-└── report.py    → markdown report with embedded charts
+src/
+├── run.py        → single entry point
+├── analyze.py    → per-tensor stats (resumable JSONL)
+├── visualize.py  → 9 chart types (dark theme)
+└── report.py     → markdown report with embedded charts
 ```
 
 **Resumable**: Analysis appends to JSONL line by line. If interrupted, rerun and it picks up where it left off.
@@ -73,16 +74,16 @@ results/<model>/
 
 ```bash
 # Skip analysis, regenerate charts + report
-python run.py openai-community/gpt2 --skip-analyze
+python src/run.py openai-community/gpt2 --skip-analyze
 
 # Only regenerate report
-python run.py openai-community/gpt2 --skip-analyze --skip-visualize
+python src/run.py openai-community/gpt2 --skip-analyze --skip-visualize
 
 # Custom output directory
-python run.py deepseek-ai/DeepSeek-V3 --output-dir ./ds_v3
+python src/run.py deepseek-ai/DeepSeek-V3 --output-dir ./ds_v3
 
 # Run steps individually
-python analyze.py --model openai-community/gpt2 --output stats.jsonl
-python visualize.py --input stats.jsonl --output-dir charts/
-python report.py --input stats.jsonl --images-dir charts/ --output report.md
+python src/analyze.py --model openai-community/gpt2 --output stats.jsonl
+python src/visualize.py --input stats.jsonl --output-dir charts/
+python src/report.py --input stats.jsonl --images-dir charts/ --output report.md
 ```
