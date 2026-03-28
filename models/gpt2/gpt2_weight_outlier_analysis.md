@@ -26,7 +26,7 @@ GPT-2 is small by modern standards, but the outlier patterns it exhibits are con
 
 ## 1. Global Weight Distribution
 
-![[ai/llm/quantization/weight_outliers/gpt2/images/fig1_global_distribution.png]]
+![fig1_global_distribution.png](images/fig1_global_distribution.png)
 
 ### Key numbers
 
@@ -53,7 +53,7 @@ GPT-2 is small by modern standards, but the outlier patterns it exhibits are con
 
 ## 2. Per-Layer Statistics
 
-![[ai/llm/quantization/weight_outliers/gpt2/images/fig2_per_layer_stats.png]]
+![fig2_per_layer_stats.png](images/fig2_per_layer_stats.png)
 
 Three metrics per layer, color-coded by severity:
 
@@ -85,7 +85,7 @@ Compare to well-behaved layers:
 
 ## 3. Where Outliers Live: Weight Heatmaps
 
-![[ai/llm/quantization/weight_outliers/gpt2/images/fig3_worst_layers_heatmap.png]]
+![fig3_worst_layers_heatmap.png](images/fig3_worst_layers_heatmap.png)
 
 These heatmaps show |weight| for the 4 layers with highest kurtosis. The bright vertical lines are the key observation: **outliers concentrate in specific output channels**, not randomly scattered.
 
@@ -99,7 +99,7 @@ This channel-wise clustering is why **per-channel quantization** is so much bett
 
 ## 4. Systematic Outlier Dimensions
 
-![[ai/llm/quantization/weight_outliers/gpt2/images/fig4_systematic_outlier_dims.png]]
+![fig4_systematic_outlier_dims.png](images/fig4_systematic_outlier_dims.png)
 
 This is the most important finding. Looking at the `c_attn` (QKV projection) weights across all 12 layers:
 
@@ -124,7 +124,7 @@ This systematic structure is what makes rotation-based methods (QuaRot, SpinQuan
 
 ## 5. Impact on INT4 Quantization
 
-![[ai/llm/quantization/weight_outliers/gpt2/images/fig5_quantization_impact.png]]
+![fig5_quantization_impact.png](images/fig5_quantization_impact.png)
 
 ### Left: The distribution problem
 `h.3.mlp.c_proj` has 99.9% of its weights between -1 and 1, but a max of 17.1. The entire usable range is invisible at this scale.
@@ -156,7 +156,7 @@ But clipping means those outlier values are permanently lost. This is the fundam
 
 ## 6. MLP c_proj Evolution by Layer Depth
 
-![[ai/llm/quantization/weight_outliers/gpt2/images/fig6_mlp_cproj_evolution.png]]
+![fig6_mlp_cproj_evolution.png](images/fig6_mlp_cproj_evolution.png)
 
 All 12 MLP c_proj layers on log-scale y-axis. The pattern:
 

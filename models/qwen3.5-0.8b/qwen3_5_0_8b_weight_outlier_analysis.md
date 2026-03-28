@@ -28,49 +28,49 @@ Tool: weight-outlier-analyzer
 
 Excess kurtosis per tensor, grouped by layer and component. Higher values indicate heavier tails / more outliers.
 
-![[images/01_kurtosis_by_layer.png]]
+![images/01_kurtosis_by_layer.png](images/01_kurtosis_by_layer.png)
 
 ### Abs Max by Layer
 
 Maximum absolute weight value per tensor. Spikes indicate tensors with extreme outlier values.
 
-![[images/02_abs_max_by_layer.png]]
+![images/02_abs_max_by_layer.png](images/02_abs_max_by_layer.png)
 
 ### Dynamic Range
 
 Ratio of max absolute value to median absolute value. Higher ratios mean worse quantization behavior.
 
-![[images/03_dynamic_range_by_layer.png]]
+![images/03_dynamic_range_by_layer.png](images/03_dynamic_range_by_layer.png)
 
 ### Outlier Sigma Heatmap
 
 Percentage of weights beyond Nσ thresholds, shown as a heatmap across layers and components.
 
-![[images/04_outlier_sigma_heatmap.png]]
+![images/04_outlier_sigma_heatmap.png](images/04_outlier_sigma_heatmap.png)
 
 ### Quantization Error
 
 INT4 quantization mean squared error — comparing naive quantization vs 99.9th percentile clipping.
 
-![[images/05_quant_error_by_layer.png]]
+![images/05_quant_error_by_layer.png](images/05_quant_error_by_layer.png)
 
 ### Outlier Dimensions
 
 Input dimensions that are most frequently flagged as outliers. Systematic outlier dims affect many tensors.
 
-![[images/06_outlier_dims.png]]
+![images/06_outlier_dims.png](images/06_outlier_dims.png)
 
 ### Component Summary
 
 Box-plot comparison of kurtosis, absolute max, and dynamic range across component types.
 
-![[images/07_component_summary.png]]
+![images/07_component_summary.png](images/07_component_summary.png)
 
 ### Worst Tensors
 
 Top tensors ranked by excess kurtosis — the hardest to quantize.
 
-![[images/08_worst_tensors.png]]
+![images/08_worst_tensors.png](images/08_worst_tensors.png)
 
 ## Component Breakdown
 

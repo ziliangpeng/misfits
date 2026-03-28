@@ -31,9 +31,9 @@ Then generates 9 chart types and a markdown report.
 
 | Model | Peak Kurtosis | Global \|max\| | INT4 Clip Improvement | Verdict |
 |-------|-------------:|---------------:|----------------------:|---------|
-| [GPT-2](models/gpt2/) | 790.5 | 17.10 | 90.8% | Severe outliers in MLP layers |
-| [Qwen3.5-0.8B](models/qwen3.5-0.8b/) | 712.0 | 4.75 | 83.0% | Novel arch has new outlier patterns |
-| [Llama 3.2 1B](models/llama-3.2-1b/) | 16.1 | 1.23 | 90.4% | Remarkably clean |
+| [GPT-2](models/gpt2/gpt2_weight_outlier_analysis.md) | 790.5 | 17.10 | 90.8% | Severe outliers in MLP layers |
+| [Qwen3.5-0.8B](models/qwen3.5-0.8b/qwen3_5_0_8b_weight_outlier_analysis.md) | 712.0 | 4.75 | 83.0% | Novel arch has new outlier patterns |
+| [Llama 3.2 1B](models/llama-3.2-1b/llama_3_2_1b_weight_outlier_analysis.md) | 16.1 | 1.23 | 90.4% | Remarkably clean |
 
 [Full comparison →](models/comparison.md)
 
