@@ -1,0 +1,22 @@
+[project]
+name = "misfits"
+version = "0.1.0"
+description = "Weight outlier analysis for LLMs — the misfits that break quantization"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+dependencies = [
+    "torch>=2.0",
+    "numpy",
+    "matplotlib",
+    "tqdm",
+    "huggingface_hub",
+    "safetensors",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
