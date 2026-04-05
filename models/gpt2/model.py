@@ -169,19 +169,42 @@ class GPT2Weights:
         return cls.from_snapshot(snapshot_dir)
 
     def list_layers(self) -> list[str]:
-        """Return all tensor names in sorted order."""
+        """Return all raw checkpoint tensor names in sorted order."""
         return sorted(self._state_dict.keys())
 
+    def _resolve_layer_name(self, layer_name: str) -> str:
+        """Resolve a requested layer name to a raw checkpoint tensor name.
+
+        GPT-2 checkpoints from `openai-community/gpt2` use names like
+        `wte.weight` and `h.0.attn.c_attn.weight`. This resolver also accepts
+        the common `transformer.*` prefix and maps it back to the stored key.
+        """
+        if layer_name in self._state_dict:
+            return layer_name
+
+        if layer_name.startswith("transformer."):
+            candidate = layer_name.removeprefix("transformer.")
+            if candidate in self._state_dict:
+                return candidate
+
+        raise KeyError(f"Unknown GPT-2 layer: {layer_name}")
+
     def get_tensor(self, layer_name: str) -> torch.Tensor:
-        """Return the tensor for a given layer name."""
-        try:
-            return self._state_dict[layer_name]
-        except KeyError as exc:
-            raise KeyError(f"Unknown GPT-2 layer: {layer_name}") from exc
+        """Return the tensor for a given layer name.
+
+        Accepts either the raw checkpoint name or the equivalent
+        `transformer.*` name when applicable.
+        """
+        resolved_name = self._resolve_layer_name(layer_name)
+        return self._state_dict[resolved_name]
 
     def __contains__(self, layer_name: str) -> bool:
-        """Return whether a layer name exists in the loaded state dict."""
-        return layer_name in self._state_dict
+        """Return whether a layer name can be resolved in the loaded state dict."""
+        try:
+            self._resolve_layer_name(layer_name)
+        except KeyError:
+            return False
+        return True
 
     def __len__(self) -> int:
         """Return the number of tensors currently loaded."""
