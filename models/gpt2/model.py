@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from collections.abc import Iterator
 from typing import Iterable
 
 import torch
@@ -197,6 +198,11 @@ class GPT2Weights:
         """
         resolved_name = self._resolve_layer_name(layer_name)
         return self._state_dict[resolved_name]
+
+    def iter_tensors(self) -> Iterator[tuple[str, torch.Tensor]]:
+        """Yield `(name, tensor)` pairs for all stored tensors in sorted order."""
+        for layer_name in self.list_layers():
+            yield layer_name, self._state_dict[layer_name]
 
     def __contains__(self, layer_name: str) -> bool:
         """Return whether a layer name can be resolved in the loaded state dict."""
