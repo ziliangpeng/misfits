@@ -84,6 +84,6 @@ Clear generational improvement:
 
 ## Detailed Reports
 
-- [GPT-2](gpt2/gpt2_weight_outlier_analysis.md)
+- [GPT-2](gpt2/gpt2_reference_weight_outlier_analysis.md)
 - [Qwen3.5-0.8B](qwen3.5-0.8b/qwen3_5_0_8b_weight_outlier_analysis.md)
 - [Llama 3.2 1B](llama-3.2-1b/llama_3_2_1b_weight_outlier_analysis.md)

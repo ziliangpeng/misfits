@@ -32,14 +32,17 @@ MODELS = {
     "gpt2": {
         "name": "GPT-2",
         "dir": ROOT / "models" / "gpt2",
+        "report": "gpt2_weight_outlier_analysis.md",
     },
     "llama-3.2-1b": {
         "name": "Llama 3.2 1B",
         "dir": ROOT / "models" / "llama-3.2-1b",
+        "report": "llama_3_2_1b_weight_outlier_analysis.md",
     },
     "qwen3.5-0.8b": {
         "name": "Qwen3.5-0.8B",
         "dir": ROOT / "models" / "qwen3.5-0.8b",
+        "report": "qwen3_5_0_8b_weight_outlier_analysis.md",
     },
 }
 
@@ -316,10 +319,15 @@ def generate_comparison(model_keys: list[str]) -> None:
     for key, info in MODELS.items():
         if key not in summaries:
             continue
-        reports = list(info["dir"].glob("*_weight_outlier_analysis.md"))
-        if reports:
-            # Path relative to models/ dir
-            rel = reports[0].relative_to(ROOT / "models")
+        preferred_report = info["dir"] / info["report"]
+        if preferred_report.exists():
+            rel = preferred_report.relative_to(ROOT / "models")
+            w(f"- [{info['name']}]({rel})")
+            continue
+
+        fallback_reports = sorted(info["dir"].glob("*_weight_outlier_analysis.md"))
+        if fallback_reports:
+            rel = fallback_reports[0].relative_to(ROOT / "models")
             w(f"- [{info['name']}]({rel})")
     w("")
 
